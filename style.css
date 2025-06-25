@@ -1,0 +1,21 @@
+body {
+    margin: 0rem auto;
+    max-width: 40rem;
+    padding: 0.6rem 3.2rem;
+    font: 1.2em/1.5 sans-serif;
+}
+h1,h2,h3 {
+    margin: 1rem 0;
+}
+input,textarea {
+    padding: 0.25rem;
+    resize: none;
+}
+label {
+    display: flex;
+    flex-direction: column;
+}
+p {
+    line-height: 1.5;
+    margin: 0;
+}
