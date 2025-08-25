@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Brainfuck compiler</title>
+  <link rel="stylesheet" href="assets/style.css"/>
+</head>
+
+<body>
+  <script src="assets/brainfuck.js"></script>
+  <script>
+    var i = 0;
+    function compile() {
+      i += 1;
+
+      var code = document.getElementById("codearea").value;
+      var bin = brainfuck.compile(code);
+      var blob = new Blob([bin], { type: "application/octet-stream" });
+
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.textContent = `Download program #${i}`;
+      a.download = `program${i}`;
+
+      var anchor = document.getElementById("compile");
+      anchor.insertAdjacentElement('afterend', a);
+      anchor.insertAdjacentElement('afterend', document.createElement('br'));
+    }
+  </script>
+
+  <header>
+    <h1>Brainfuck</h1>
+    <p>
+      Brainfuck is an immortal general-purpose programming language. It has only
+      eight commands which operate on an array of bytes and a movable data pointer.
+      The commands are:
+    </p>
+    <ul>
+      <li><code>&gt;</code> move the data pointer one cell to the right</li>
+      <li><code>&lt;</code> move the data pointer one cell to the left</li>
+      <li><code>+</code> increase the value at the current cell by one</li>
+      <li><code>-</code> decrease the value at the current cell by one</li>
+      <li><code>.</code> output the value at the current cell as a character</li>
+      <li><code>,</code> read one byte of input into the current cell</li>
+      <li><code>[</code> if the current cell is zero, jump forward to the matching <code>]</code></li>
+      <li><code>]</code> if the current cell is not zero, jump back to the matching <code>[</code></li>
+    </ul>
+  </header>
+
+  <section>
+    <h2>Why Brainfuck?</h2>
+    <ul>
+      <li>
+        <b>Safety:</b> Brainfuck does not require manual memorymanagement which eliminates
+        many common security bugs.
+      </li>
+      <li><b>Easy to learn:</b> Beginners can easily master the language in a single afternoon.</li>
+      <li>
+        <b>Standardized:</b> While Brainfuck lacks an official standard, there is a widely
+        agreed-on specification of the eight commands all implementations of Brainfuck must support
+        and their behaviour is consistent across implementations.
+      </li>
+      <li><b>Made in Switzerland:</b> Self-explanatory 🇨🇭</li>
+      <li>
+        <b>Portability:</b> There are implementations of Brainfuck for all major operating
+        systems and CPU architectures.
+      </li>
+      <li>
+        <b>Diverse ecosystem:</b> There are many competing implementations of Brainfuck,
+        both compiled and interpreted, focusing on different goals. There are plugins available
+        for Visual Studio Code and other editors.
+      </li>
+      <li>
+        <b>Turing-completeness:</b> This has been one of the main objectives of the languages.
+        Unlike other popular languages such as HTML or Markdown, Brainfuck is capable of computing any
+        computable function.
+      </li>
+      <li>
+        <b>Industry standard:</b> Brainfuck has been used by <a href="https://arxiv.org/abs/2406.19108">
+        Google, Paradigms of Intelligence Team and The University of Chicago.</a>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Compiler</h2>
+    <p>
+      I wrote a Brainfuck compiler in OCaml which generates native x86 executables for Linux.
+      No LLVM, just translating Brainfuck commands to machine code and outputting the ELF file.
+    </p>
+    <p>
+      Thankfully, I figured out that it is possible to compile OCaml programs to
+      JavaScript so that my compiler can run in the browser and all of you can experience
+      the joy of Brainfuck without having to download OCaml and building the compiler first.
+    </p>
+    <textarea rows="6" id="codearea">>++++++++[<+++++++++>-]<.>++++[<+++++++>-]<+.+++++++..+
+++.>>++++++[<+++++++>-]<++.------------.>++++++[<++++++
++++>-]<+.<.+++.------.--------.>>>++++[<++++++++>-]<+.</textarea><br/>
+    <button onclick="compile()" id="compile">Compile</button><br/>
+    <a id="download" download="program" href="#"></a>
+  </section>
+</body>
+</html>

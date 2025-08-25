@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Prisoner's dilemma</title>
+  <link rel="stylesheet" href="assets/style.css"/>
+<body>
+  <header>
+    <h1>Prisoner's dilemma</h1>
+    <p>
+      Two criminals, whose names are surprisingly Alice and Bob, got arrested. The cunning
+      cops don't have enough evidence to prove their heinous crimes, so they want to trick
+      each of the two unfortunate souls into snitching on their bestie.
+    </p>
+    <p>
+      Alice and Bob are interrogated separately. Devious detectives give both of them
+      the choice to snitch on their accomplice (defect) or to stay silent (cooperate).
+      The possible scenarios are:
+      <ul>
+        <li>Alice and Bob both stay silent &mdash; police cannot prove their crimes, so Alice and Bob go to jail only for 2 years for minor offences</li>
+        <li>Alice snitches on Bob, but Bob stays silent &mdash; Bob goes to jail for 10 years, Alice is free</li>
+        <li>Alice stays silent, but Bob snitch on her &mdash; Alice goes to jail for 10 years, Bob is free</li>
+        <li>Alice and Bob snitch on each other &mdash; Both go to jail for 6 years</li>
+      </ul>
+    </p>
+    <p>
+      Contrary to its name, this is no dilemma at all. Both Alice and Bob have two
+      options (cooperate or defect) and the choice to defect is always rational.
+      No matter if Bob cooperates or defects, Alice always gets lower sentence if
+      she defects.
+    </p>
+    <p>
+      But isn't it suboptimal from the global perspective? This way, both will defect
+      even though they could get lower sentences if they both cooperated! Of course.
+      The detectives are called <i>devious</i> for a reason.
+    </p>
+  </header>
+
+  <section>
+    <h2>Mafia strikes back</h2>
+    <p>
+      All real-world criminal organizations have to deal with the problem described
+      above. The ingenious Italians came up with <i>omertà</i> &ndash; if you defect
+      and snitch on your co-conspirators, the mafia will kill you. Now, the rational
+      decision is to stay silent.
+    </p>
+    <p>
+      Game theory generalises this to an iterated prisoner's dilemma:
+      <ul>
+        <li>There are two players</li>
+        <li>They play multiple rounds of the game</li>
+        <li>In every round, both players can cooperate with the other one or defect</li>
+        <li>Rewards or punishments are the same as in prisoner's dilemma</li>
+        <li>Both players know what the other player did in the previous rounds</li>
+      </ul>
+    </p>
+    <p>
+      The classic prisoner's dilemma was kind of boring because there were just two
+      options. In the iterated prisoner's dilmma, players can adopt many different
+      strategies. For example:
+      <ul>
+        <li>Always cooperate</li>
+        <li>Always defect</li>
+        <li>Cooperate until the other player betrays you, then always defect</li>
+        <li>Cooperate in the first round, then always copy the other player's movement from previous round (tit-for-tat)</li>
+      </ul>
+    </p>
+  </section>
+
+  <section>
+    <h2>Story time</h2>
+    <p>
+      Our immensely based math teacher told us about the prisoner's dilemma in the 9th grade. He described
+      the <a href="https://cs.stanford.edu/people/eroberts/courses/soco/projects/1998-99/game-theory/axelrod.html">Axelrod's tournament</a>
+      in which the simple tit-for-tat strategy won against all other ones. In the next math class, each of us
+      had to come up with a strategy for the dilemma and we played against each other (I don't remember who
+      won at the time).
+    </p>
+    <p>
+      Since I was programming in C++ at the time, I decided to write my own simulation, which ran
+      different strategies and then printed the results. My code was awful and the functionality
+      wasn't impressive either, just white text on a black terminal. Later I learnt SDL2 and made
+      a graphical version which produced a bar chart instead of printing numbers.
+    </p>
+    <p>
+      Recently, I found out that Rust programs can be easily compiled to WebAssembly and run
+      in the browser. And since my original program wasn't that long, I decided to rewrite it
+      in Rust and put it here. I also found some Rust library for UI widgets, so you can change
+      settings of the simulation using the sliders.
+    </p>
+  </section>
+
+  <section>
+    <h2>Simulation</h2>
+    <p>
+      The simulation tries different strategies for playing the game. You can find what the strategies
+      are in the source code
+      <a href="https://github.com/richard-blazek/PrisonersDilemma/blob/main/src/strategy.rs">on GitHub</a>
+      (I'll put descriptions here later).
+    </p>
+    <p>
+      The simulation plays each pair of strategies against each other. For each pair, we do multiple rounds.
+      In each round, the players know what their opponent did in the previous rounds and they have to make
+      a decision for this round.
+    </p>
+    <p>
+      We assign points for each round this way:
+      <ul>
+        <li>Both cooperate &mdash; both get 3 points (set by the "cooperation" slider)</li>
+        <li>Both defect &mdash; both get 1 point (set by the "conflict" slider)</li>
+        <li>
+          One cooperates, one defects &mdash; the first one gets 0 points (set by the "sucker" slider),
+          the other one gets 5 points (set by the "temptation" slider)
+        </li>
+      </ul>
+      You can also change the number of rounds.
+    </p>
+    <p id="loading_text">Loading...</p>
+    <canvas id="canvas_id" style="width: 100%; height: min(100vh, 800px);"></canvas>
+  </section>
+
+  <script type="module">
+    import init, * as bindings from './assets/prisoners-dilemma-4610de8599b46f7a.js';
+    const wasm = await init({ module_or_path: './assets/prisoners-dilemma-4610de8599b46f7a_bg.wasm' });
+    window.wasmBindings = bindings;
+    dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
+  </script>
+</body>
+</html>

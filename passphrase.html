@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Generátor hesel</title>
+  <link rel="stylesheet" href="assets/style.css"/>
+</head>
+
+<body>
+  <section>
+    <h1>Generátor hesel</h1>
+    <label>
+      Počet slov:
+      <input id="count" value="4" required oninput="update()" />
+    </label><br/>
+    <label>
+      Entropie:
+      <input id="enthropy" readonly/>
+    </label><br/>
+    <label for="output">Heslo:</label><br/>
+    <textarea id="output" rows="4" readonly></textarea>
+  </section>
+  <script src="assets/passphrase.js"></script>
+  <script>update()</script>
+</body>
+</html>
