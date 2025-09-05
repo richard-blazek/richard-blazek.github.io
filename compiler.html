@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Compiler</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Richard Blažek">
+  <link rel="stylesheet" href="assets/style.css"/>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+  <header>
+    <h1>Compiler</h1>
+    <p>
+      Work-in-progress
+    </p>
+  </header>
+
+  <section>
+    <h2>Playground</h2>
+    <p>
+      Also work-in-progress
+    </p>
+    <textarea rows="20" id="codearea">range = fun[n: Int] Array[Int] {
+    result = array[Int, n];
+    for i, value : result {
+        set[result, i, i + 1];
+    }
+    result
+};
+main = fun[] () {
+    nums = range[100];
+    for num : nums {
+        print[num, if isPrime[num] {
+          " is a prime."
+        } else {
+          " is not a prime."
+        }, "\n"];
+    }
+};
+isPrime = fun[n: Int] Bool {
+    prime = true;
+    if n < 2 {
+        prime = false;
+    } else {
+        i = 2;
+        while i * i <= n && prime {
+            prime = n % i != 0;
+            i = i + 1;
+        }
+    }
+    prime
+};
+</textarea><br/>
+    <button id="build">Build and run</button><br/>
+    <h2>Output</h2>
+    <textarea id="output" readonly rows="4"></textarea>
+  </section>
+
+
+  <script src="https://unpkg.com/wabt"></script>
+
+  <script type="module">
+    import init, { compile } from "./assets/zybacompiler_2.js";
+    
+    const wabt = await WabtModule();
+    let memory;
+
+    function print(s) {
+      let e = document.getElementById("output");
+      e.value = e.value + s;
+      if (s === "\n") {
+        e.rows += 1;
+      }
+    }
+    
+    function print_text(ptr) {
+      const bytes = new Uint8Array(memory.buffer, ptr);
+      for (let i = 0; bytes[i] !== 0; i++) {
+        print(String.fromCharCode(bytes[i]));
+      }
+    }
+
+    function print_real(num) {
+      print(String(num));
+    }
+
+    function print_ints(low, high) {
+      const big = BigInt(low >>> 0) | (BigInt(high) << 32n);
+      print(big.toString());
+    }
+
+    document.getElementById("build").onclick = async function build() {
+      document.getElementById("output").value = '';
+      const code = document.getElementById("codearea").value;
+
+      init().then(async () => {
+        const watSource = compile(code);
+        if (watSource.startsWith("Error")) {
+          output.textContent = watSource;
+          return;
+        }
+
+        const wasmModule = wabt.parseWat("example.wat", watSource);
+        const { buffer } = wasmModule.toBinary({});
+
+        const { instance } = await WebAssembly.instantiate(buffer, ({
+            env: ({ print_text, print_real, print_ints })
+        }));
+
+        const main = instance.exports.main;
+        memory = instance.exports.memory;
+        main()
+      })
+    }
+  </script>
+</body>
+</html>

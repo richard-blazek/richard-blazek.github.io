@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Prisoner's dilemma</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Simulated tournament of the strategies for the Prisoner's dilemma">
+  <meta name="author" content="Richard Blažek">
+  <link rel="stylesheet" href="assets/style.css"/>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="canonical" href="https://richardblazek.com/prisoners-dilemma.html">
+<body>
+  <header>
+    <h1>Prisoner's dilemma</h1>
+    <p>
+      Two criminals, whose names are surprisingly Alice and Bob, got arrested.
+      The cunning cops don't have enough evidence to prove their heinous
+      crimes, so they want to trick each of the two unfortunate souls
+      into snitching on their bestie.
+    </p>
+    <p>
+      The devious detectives interrogate Alice and Bob separately and give
+      both of them the choice to snitch on their accomplice (= defect) or
+      to stay silent (= cooperate). The possible scenarios are:
+      <ul>
+        <li>
+          Both cooperate &mdash; police cannot prove their real crimes.
+          However, everyone in Dublin crosses against the lights, so the police
+          can use that offence and send Alice and Bob to prison for two years.
+        </li>
+        <li>
+          Alice defects, Bob cooperates &mdash;
+          Bob goes to prison for 10 years, Alice is free
+        </li>
+        <li>
+          Alice cooperates, Bob defects &mdash;
+          Alice goes to prison for 10 years, Bob is free
+        </li>
+        <li>
+          Alice defects, Bob defects &mdash;
+          Alice and Bob both go to prison for 6 years
+        </li>
+      </ul>
+    </p>
+    <p>
+      Contrary to its name, this is no dilemma at all. Both Alice and Bob have
+      two options (cooperate or defect) and the choice to defect is always
+      rational for each individual. No matter if Bob cooperates or defects,
+      Alice always gets lower sentence if she herself defects, and vice versa.
+    </p>
+    <p>
+      But isn't it suboptimal from the global perspective? Alice and Bob will
+      both defect even though they could get lower sentences if they both
+      cooperated! Well, of course. The detectives are called <i>devious</i>
+      for a reason.
+    </p>
+  </header>
+
+  <section>
+    <h2>Mafia strikes back</h2>
+    <p>
+      All real-world criminal organizations have to deal with the problem
+      described above. The ingenious Italians came up with <i>omertà</i>
+      &ndash; if you defect and snitch on your co-conspirators, the mafia will
+      kill you. Because the cost of defecting is now death, the rational
+      decision is to stay silent. The criminals are better of as a result
+      of that.
+    </p>
+    <p>
+      Game theory generalises this to an iterated prisoner's dilemma:
+      <ul>
+        <li>There are two prisoners</li>
+        <li>In every round, both prisoners can cooperate or defect</li>
+        <li>
+          Just like in a simple prisoner's dilemma, the rational choice for one
+          round is to defect.
+        </li>
+        <li>
+          However, they play for multiple rounds and both know what
+          the other one did in the previous rounds
+        </li>
+      </ul>
+    </p>
+    <p>
+      The classic prisoner's dilemma was kind of boring because there were just
+      two options. In the iterated prisoner's dilmma, players can adopt many
+      different strategies. For example:
+      <ul>
+        <li>Always cooperate</li>
+        <li>Always defect</li>
+        <li>
+          Cooperate until the other player betrays you, then always defect
+        </li>
+        <li>
+          Tit-for-tat: First cooperate, then always copy the other player's
+          movement from previous round
+        </li>
+      </ul>
+    </p>
+  </section>
+
+  <section>
+    <h2>Simulation</h2>
+    <p>
+      The simulation tries different strategies for playing the game. We play
+      each pair of strategies against each other. For each pair, we do multiple
+      rounds. In each round, the players know what their opponent did
+      in the previous rounds and they have to make a decision for this round.
+    </p>
+    <p>
+      We assign points for each round this way:
+      <ul>
+        <li>Both cooperate &mdash; both get 3 points (set by the "cooperation" slider)</li>
+        <li>Both defect &mdash; both get 1 point (set by the "conflict" slider)</li>
+        <li>
+          One cooperates, one defects &mdash; the first one gets 0 points (set by the "sucker" slider),
+          the other one gets 5 points (set by the "temptation" slider)
+        </li>
+      </ul>
+      You can also change the number of rounds.
+    </p>
+    <p id="loading_text">Loading...</p>
+    <canvas id="canvas_id" style="width: 100%; height: min(100vh, 800px);"></canvas>
+  </section>
+
+  <script type="module">
+    import init, * as bindings from './assets/prisoners-dilemma-4610de8599b46f7a.js';
+    const wasm = await init({ module_or_path: './assets/prisoners-dilemma-4610de8599b46f7a_bg.wasm' });
+    window.wasmBindings = bindings;
+    dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
+  </script>
+
+  <section>
+    <h2>Strategies</h2>
+    <p>
+      Here are the strategies from above described:
+      <ul>
+          <li><b>Clever:</b> Starts by defecting, then cooperates for a few rounds, but later applies quirky conditional logic; mostly mimics the opponent’s last move unless special patterns appear.</li>
+          <li><b>Tolerant:</b> Cooperates unless the opponent defects twice in a row at some point.</li>
+          <li><b>Agreeable:</b> Always cooperates.</li>
+          <li><b>Averager:</b> Cooperates if the opponent has cooperated at least half the time overall.</li>
+          <li><b>Crook:</b> Defects first, then cooperates only on even-numbered rounds if the opponent cooperated last time.</li>
+          <li><b>EvilAvg:</b> Like Averager, but refuses to cooperate during the first two rounds.</li>
+          <li><b>EvilNegative:</b> Cooperates only if the opponent defected last round.</li>
+          <li><b>EvilTf2T:</b> Cooperates only if the opponent cooperated in at least one of the last two rounds, but not in the first two rounds.</li>
+          <li><b>EvilTf1T:</b> Cooperates only if the opponent cooperated in the last round.</li>
+          <li><b>FlipFlop:</b> Alternates strictly between defect and cooperate every round.</li>
+          <li><b>Forgive0:</b> Cooperates only if the opponent has never defected.</li>
+          <li><b>Forgive1:</b> Cooperates unless the opponent has defected more than once.</li>
+          <li><b>Forgive2:</b> Cooperates unless the opponent has defected more than twice.</li>
+          <li><b>Historic:</b> Cooperates unless the opponent defected on the second move.</li>
+          <li><b>Negative:</b> Defects first, then always does the opposite of the opponent’s last move.</li>
+          <li><b>NiceAvg:</b> Like Averager, but always cooperates during the first two rounds.</li>
+          <li><b>Evil:</b> Always defects.</li>
+          <li><b>Provocateur:</b> Defects on the first move, then copies the opponent’s previous move thereafter.</li>
+          <li><b>Tf1t (Tit for Tat):</b> Cooperates first, then copies the opponent’s last move.</li>
+          <li><b>Tf2t (Tit for Two Tats):</b> Cooperates first, then defects only if the opponent defected twice in a row.</li>
+          <li><b>Touchy:</b> Cooperates like Tf1t but only if the opponent has never defected twice in a row.</li>
+      </ul>
+    </p>
+  </section>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <title>Generátor hesel</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Generátor frázových hesel ve stylu xkcd pro češtinu">
+  <meta name="author" content="Richard Blažek">
+  <link rel="stylesheet" href="assets/style.css"/>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="canonical" href="https://richardblazek.com/passphrase.html">
+</head>
+
+<body>
+  <section>
+    <h1>Generátor hesel</h1>
+    <label>
+      Počet slov:
+      <input id="count" value="4" required oninput="update()" />
+    </label><br/>
+    <label>
+      Entropie:
+      <input id="enthropy" readonly/>
+    </label><br/>
+    <label for="output">Heslo:</label><br/>
+    <textarea id="output" rows="4" readonly></textarea>
+  </section>
+  <script src="assets/passphrase.js"></script>
+  <script>update()</script>
+</body>
+</html>
