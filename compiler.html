@@ -75,9 +75,7 @@ isPrime = fun[n: Int] Bool {
 
     function print(s) {
       output.value = output.value + s;
-      if (s.includes("\n")) {
-        output.rows += 1;
-      }
+      output.rows = (output.value.match(/\n/g) || []).length + 1;
     }
     
     function print_text(ptr) {
