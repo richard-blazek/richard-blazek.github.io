@@ -59,7 +59,7 @@ isPrime = fun[n: Int] Bool {
     <button id="buildandshow">Compile to WebAssembly</button>
     <button id="buildandrun">Build and run</button><br/>
     <h2>Output</h2>
-    <textarea id="output" readonly rows="4" style="width: 100%"></textarea>
+    <textarea id="outputarea" readonly rows="4" style="width: 100%"></textarea>
   </section>
 
 
@@ -68,8 +68,8 @@ isPrime = fun[n: Int] Bool {
   <script type="module">
     import init, { compile } from "./assets/zybacompiler_2.js";
     
-    const codearea = document.getElementById("output");
-    const output = document.getElementById("output");
+    const codearea = document.getElementById("codearea");
+    const output = document.getElementById("outputarea");
     const wabt = await WabtModule();
     let memory;
 
