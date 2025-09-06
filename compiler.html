@@ -5,9 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="index, follow">
+  <meta name="description" content="My work-in-progress, a compiler">
   <meta name="author" content="Richard Blažek">
   <link rel="stylesheet" href="assets/style.css"/>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="canonical" href="https://richardblazek.com/compiler.html">
 </head>
 
 <body>
@@ -23,7 +25,7 @@
     <p>
       Also work-in-progress
     </p>
-    <textarea rows="20" id="codearea">range = fun[n: Int] Array[Int] {
+    <textarea rows="20" id="codearea" style="width: 100%">range = fun[n: Int] Array[Int] {
     result = array[Int, n];
     for i, value : result {
         set[result, i, i + 1];
@@ -54,9 +56,10 @@ isPrime = fun[n: Int] Bool {
     prime
 };
 </textarea><br/>
-    <button id="build">Build and run</button><br/>
+    <button id="buildandshow">Compile to WebAssembly</button>
+    <button id="buildandrun">Build and run</button><br/>
     <h2>Output</h2>
-    <textarea id="output" readonly rows="4"></textarea>
+    <textarea id="output" readonly rows="4" style="width: 100%"></textarea>
   </section>
 
 
@@ -65,14 +68,15 @@ isPrime = fun[n: Int] Bool {
   <script type="module">
     import init, { compile } from "./assets/zybacompiler_2.js";
     
+    const codearea = document.getElementById("output");
+    const output = document.getElementById("output");
     const wabt = await WabtModule();
     let memory;
 
     function print(s) {
-      let e = document.getElementById("output");
-      e.value = e.value + s;
-      if (s === "\n") {
-        e.rows += 1;
+      output.value = output.value + s;
+      if (s.includes("\n")) {
+        output.rows += 1;
       }
     }
     
@@ -92,28 +96,32 @@ isPrime = fun[n: Int] Bool {
       print(big.toString());
     }
 
-    document.getElementById("build").onclick = async function build() {
-      document.getElementById("output").value = '';
-      const code = document.getElementById("codearea").value;
+    document.getElementById("buildandshow").onclick = async () => {
+      await init();
+      output.value = compile(codearea.value);
+    };
 
-      init().then(async () => {
-        const watSource = compile(code);
-        if (watSource.startsWith("Error")) {
-          output.textContent = watSource;
-          return;
-        }
+    document.getElementById("buildandrun").onclick = async () => {
+      await init();
 
-        const wasmModule = wabt.parseWat("example.wat", watSource);
-        const { buffer } = wasmModule.toBinary({});
+      output.value = '';
+      const wat = compile(codearea.value);
 
-        const { instance } = await WebAssembly.instantiate(buffer, ({
-            env: ({ print_text, print_real, print_ints })
-        }));
+      if (wat.startsWith("Error")) {
+        output.value = wat;
+        return;
+      }
 
-        const main = instance.exports.main;
-        memory = instance.exports.memory;
-        main()
-      })
+      const wasmModule = wabt.parseWat("example.wat", wat);
+      const { buffer } = wasmModule.toBinary({});
+
+      const { instance } = await WebAssembly.instantiate(buffer, ({
+          env: ({ print_text, print_real, print_ints })
+      }));
+
+      const main = instance.exports.main;
+      memory = instance.exports.memory;
+      main();
     }
   </script>
 </body>

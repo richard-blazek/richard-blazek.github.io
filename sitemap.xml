@@ -2,27 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://richardblazek.com/</loc>
-    <lastmod>2025-09-05</lastmod>
+    <lastmod>2025-09-06</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://richardblazek.com/brainfuck.html</loc>
-    <lastmod>2025-09-05</lastmod>
+    <lastmod>2025-09-06</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://richardblazek.com/prisoners-dilemma.html</loc>
-    <lastmod>2025-09-05</lastmod>
+    <lastmod>2025-09-06</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://richardblazek.com/passphrase.html</loc>
-    <lastmod>2025-09-05</lastmod>
+    <lastmod>2025-09-06</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://richardblazek.com/compiler.html</loc>
-    <lastmod>2025-09-05</lastmod>
+    <lastmod>2025-09-06</lastmod>
     <priority>0.5</priority>
   </url>
 </urlset>
