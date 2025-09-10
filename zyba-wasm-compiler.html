@@ -33,6 +33,20 @@
     result
 };
 main = fun[] () {
+    isPrime = fun[n: Int] Bool {
+        prime = true;
+        if n < 2 {
+            prime = false;
+        } else {
+            i = 2;
+            while i * i <= n && prime {
+                prime = n % i != 0;
+                i = i + 1;
+            }
+        }
+        prime
+    };
+
     nums = range[100];
     for num : nums {
         print[num, if isPrime[num] {
@@ -41,19 +55,6 @@ main = fun[] () {
           " is not a prime."
         }, "\n"];
     }
-};
-isPrime = fun[n: Int] Bool {
-    prime = true;
-    if n < 2 {
-        prime = false;
-    } else {
-        i = 2;
-        while i * i <= n && prime {
-            prime = n % i != 0;
-            i = i + 1;
-        }
-    }
-    prime
 };
 </textarea><br/>
     <button id="buildandshow">Compile to WebAssembly</button>
