@@ -33,13 +33,17 @@
     result
 };
 main = fun[] () {
+    square = fun[x: Int] Int {
+        x * x
+    };
+
     isPrime = fun[n: Int] Bool {
         prime = true;
         if n < 2 {
             prime = false;
         } else {
             i = 2;
-            while i * i <= n && prime {
+            while square[i] <= n && prime {
                 prime = n % i != 0;
                 i = i + 1;
             }
