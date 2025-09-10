@@ -66,8 +66,8 @@ isPrime = fun[n: Int] Bool {
   <script src="https://unpkg.com/wabt"></script>
 
   <script type="module">
-    import init, { compile } from "./assets/zybacompiler_2.js";
-    
+    import init, { compile } from "./assets/zyba_to_wasm_compiler.js";
+
     const codearea = document.getElementById("codearea");
     const output = document.getElementById("outputarea");
     const wabt = await WabtModule();
