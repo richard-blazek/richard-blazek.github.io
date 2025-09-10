@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Compiler</title>
+  <title>My Compiler</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="index, follow">
@@ -96,7 +96,8 @@ isPrime = fun[n: Int] Bool {
 
     document.getElementById("buildandshow").onclick = async () => {
       await init();
-      output.value = compile(codearea.value);
+      output.value = '';
+      print(compile(codearea.value));
     };
 
     document.getElementById("buildandrun").onclick = async () => {
@@ -106,7 +107,7 @@ isPrime = fun[n: Int] Bool {
       const wat = compile(codearea.value);
 
       if (wat.startsWith("Error")) {
-        output.value = wat;
+        print(wat);
         return;
       }
 
