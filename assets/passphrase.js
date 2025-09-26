@@ -19,7 +19,11 @@ function update() {
         document.getElementById('count').value = 0;
     }
     var count = Number(document.getElementById('count').value) || 0;
+    if (count > 1000) {
+        document.getElementById('count').value = 1000;
+        count = 1000;
+    }
     var words = Array(count).fill(0).map(pickWord).join('-');
-    document.getElementById('output').value = words;
-    document.getElementById('enthropy').value = `${count * 15} bitů`;
+    document.getElementById('output').textContent = words;
+    document.getElementById('enthropy').textContent = `${count * 15} bits`;
 }

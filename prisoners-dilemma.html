@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Prisoner's dilemma</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Simulated tournament of the strategies for the Prisoner's dilemma">
+  <meta name="author" content="Richard Blažek">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="canonical" href="https://richardblazek.com/">
+  <link rel="stylesheet" href="assets/styles.css" />
+
+<body>
+  <main>
+    <h1>Prisoner's dilemma</h1>
+    <p>
+      This simulation tries different strategies for playing the prisoner's
+      dilemma. We play each pair of strategies against each other. For each
+      pair, we do multiple rounds. In each round, the players know what their
+      opponent did in the previous rounds and they have to make a decision
+      for this round.
+    </p>
+    <ul>
+      <li>
+        If both players cooperate &mdash; both get 3 points ("cooperation")
+      </li>
+      <li>
+        If both players defect &mdash; both get 1 point ("conflict")
+      </li>
+      <li>
+        One player cooperates, the other one defects &mdash; the first one
+        gets 0 points ("sucker"), the other one gets 5 points ("temptation")
+      </li>
+    </ul>
+    <p id="loading_text">Loading...</p>
+    <canvas id="canvas_id" style="width: 100%; height: 50rem;"></canvas>
+
+    <script type="module">
+      import init, * as bindings from './assets/prisoners-dilemma-4610de8599b46f7a.js';
+      const wasm = await init({ module_or_path: './assets/prisoners-dilemma-4610de8599b46f7a_bg.wasm' });
+      window.wasmBindings = bindings;
+      dispatchEvent(new CustomEvent("TrunkApplicationStarted", { detail: { wasm } }));
+    </script>
+
+    <p>
+      Strategies tried in the simulation:
+    </p>
+    <ul>
+      <li>
+        <b>Clever:</b> Starts by defecting, then cooperates for a few rounds,
+        but later applies quirky conditional logic; mostly mimics the opponent's
+        last move unless special patterns appear.
+      </li>
+      <li><b>Tolerant:</b> Cooperates unless the opponent defects twice in a row at some point.</li>
+      <li><b>Agreeable:</b> Always cooperates.</li>
+      <li><b>Averager:</b> Cooperates if the opponent has cooperated at least half the time overall.</li>
+      <li><b>Crook:</b> Defects first, then cooperates only on even-numbered rounds if the opponent cooperated last
+        time.</li>
+      <li><b>EvilAvg:</b> Like Averager, but refuses to cooperate during the first two rounds.</li>
+      <li><b>EvilNegative:</b> Cooperates only if the opponent defected last round.</li>
+      <li><b>EvilTf2T:</b> Cooperates only if the opponent cooperated in at least one of the last two rounds, but not in
+        the first two rounds.</li>
+      <li><b>EvilTf1T:</b> Cooperates only if the opponent cooperated in the last round.</li>
+      <li><b>FlipFlop:</b> Alternates strictly between defect and cooperate every round.</li>
+      <li><b>Forgive0:</b> Cooperates only if the opponent has never defected.</li>
+      <li><b>Forgive1:</b> Cooperates unless the opponent has defected more than once.</li>
+      <li><b>Forgive2:</b> Cooperates unless the opponent has defected more than twice.</li>
+      <li><b>Historic:</b> Cooperates unless the opponent defected on the second move.</li>
+      <li><b>Negative:</b> Defects first, then always does the opposite of the opponent's last move.</li>
+      <li><b>NiceAvg:</b> Like Averager, but always cooperates during the first two rounds.</li>
+      <li><b>Evil:</b> Always defects.</li>
+      <li><b>Provocateur:</b> Defects on the first move, then copies the opponent's previous move thereafter.</li>
+      <li><b>Tf1t (Tit for Tat):</b> Cooperates first, then copies the opponent's last move.</li>
+      <li><b>Tf2t (Tit for Two Tats):</b> Cooperates first, then defects only if the opponent defected twice in a row.
+      </li>
+      <li><b>Touchy:</b> Cooperates like Tf1t but only if the opponent has never defected twice in a row.</li>
+    </ul>
+  </main>
+  <footer>
+    © 2025 Richard Blažek. All rights reserved.
+  </footer>
+</body>
+
+</html>
