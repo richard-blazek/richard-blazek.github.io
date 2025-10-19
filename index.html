@@ -1,17 +1,82 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8"/>
-		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<title>Richard Blažek</title>
-        <link rel="stylesheet" href="style.css"/>
-	</head>
-	<body>
-		<h1>Richard Blažek</h1>
-		<p>
-			This is my website<br/>
-			GitHub: <a href="https://github.com/richard-blazek">github.com/richard-blazek</a><br/>
-			And here you can see a <a href="passphrasegen.html">Czech password generator</a>
-		</p>
-	</body>
+<html lang="en">
+
+<head>
+  <title>Richard Blažek</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Hi, I'm Richard Blažek. I come from Czechia and now I study in Dublin">
+  <meta name="author" content="Richard Blažek">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="canonical" href="https://richardblazek.com/">
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+
+<body>
+  <script>
+    function init_address(link) {
+      let s = 'Liam'.toLowerCase().split('').reverse().join('');
+      s += 'Tomáš'.toLowerCase().replace('m', ':m').replace('á', 'o').replace('š', 'i');
+      s += 'oi' + String.fromCodePoint(1 << (1 + 2 + 3));
+      const parts = location.host.split('.');
+      s += parts[parts.length - 2] + '.' + parts[parts.length - 1];
+      link.href = s;
+    }
+  </script>
+  <main>
+    <h1>Hi, I'm Richard!</h1>
+    <p>
+      I come from Czechia and now I'm a Computer Science student
+      at Trinity College Dublin in Ireland.
+    </p>
+    <p>
+      If you want to see my projects, take a look at
+      <a href="https://github.com/richard-blazek">my GitHub</a>
+      or at the featured projects below.
+      If you're someone who could hire me,
+      <a href="assets/richard-blazek-resume.pdf">here is my résumé</a>.
+      You can reach out to me using
+      <a onclick="init_address(this)" href="#">email</a>,
+      <a href="https://linkedin.com/in/richard-blazek">LinkedIn</a>,
+      <a href="&#104;&#116;&#116;&#112;&#115;&#58;&#47;&#47;&#116;&#46;&#109;&#101;&#47;&#82;&#105;&#99;&#104;&#97;&#114;&#100;&#66;&#108;&#97;&#122;&#101;&#107;">Telegram</a>,
+      or even &mdash; God forbid &mdash;
+      <a href="https://instagram.com/richard.blzk">Instagram</a>.
+    </p>
+    <section class="gallery">
+      <a class="tile" href="zyba-wasm-compiler.html">
+        <img src="assets/tileimg1.jpg" />
+        COMPILER
+      </a>
+      <a class="tile" href="prisoners-dilemma.html">
+        <img src="assets/tileimg2.jpg" />
+        PRISONER'S DILEMMA
+      </a>
+      <a class="tile" href="brainfuck.html">
+        <img src="assets/tileimg3.jpg" />
+        BRAINFUCK
+      </a>
+      <a class="tile" href="passphrase.html">
+        <img src="assets/tileimg4.jpg" />
+        PASSPHRASE GENERATOR
+      </a>
+      <a class="tile" href="https://github.com/richard-blazek/TonePlayer">
+        <img src="assets/tileimg5.jpg" />
+        TONE PLAYER
+      </a>
+      <a class="tile" href="https://github.com/richard-blazek/CzechDraughts">
+        <img src="assets/tileimg6.jpg" />
+        DRAUGHTS SOLVER
+      </a>
+    </section>
+  </main>
+  <footer>
+    © 2025 Richard Blažek. All rights reserved.
+  </footer>
+</body>
+
 </html>

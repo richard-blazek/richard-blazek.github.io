@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Brainfuck compiler</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Online compiler of Brainfuck to ELF files for x86 Linux">
+  <meta name="author" content="Richard Blažek">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="canonical" href="https://richardblazek.com/">
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+
+<body>
+  <script src="assets/brainfuck.js"></script>
+  <script>
+    var i = 0;
+    function compile() {
+      i += 1;
+
+      var code = document.getElementById("codearea").value;
+      var bin = brainfuck.compile(code);
+      var blob = new Blob([bin], { type: "application/octet-stream" });
+
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.textContent = `Download program #${i}`;
+      a.download = `program${i}`;
+
+      var anchor = document.getElementById("downloads");
+      anchor.insertAdjacentElement('afterbegin', document.createElement('br'));
+      anchor.insertAdjacentElement('afterbegin', a);
+    }
+  </script>
+
+  <main>
+    <h1>Brainfuck</h1>
+    <p>
+      <a href="https://en.wikipedia.org/wiki/Brainfuck">Brainfuck</a> is a
+      general-purpose programming language. Made in Switzerland in 1993,
+      still widely used today. Key features:
+    </p>
+    <ul>
+      <li>
+        <b>Safety:</b> Automatic memory management eliminates many common bugs
+      </li>
+      <li><b>Easy to learn:</b> You can learn Brainfuck in one day</li>
+      <li>
+        <b>Standardized:</b> No ISO standard yet, but all implementations
+        agree on supporting the same eight commands and their behaviour is
+        consistent
+      </li>
+      <li><b>Made in Switzerland:</b> 🇨🇭🇨🇭🇨🇭</li>
+      <li>
+        <b>Portability:</b> Write once, run anywhere
+      </li>
+      <li>
+        <b>Diverse ecosystem:</b> There are multiple Brainfuck implementations,
+        both compiled and interpreted, focusing on different
+        goals. There are VS Code plugins too.
+      </li>
+      <li>
+        <b>Turing-completeness:</b> Any computable function you'd like, we got you covered
+      </li>
+      <li>
+        <b>Industry standard:</b> Brainfuck has been used by
+        <a href="https://arxiv.org/abs/2406.19108">Google</a>,
+        <a href="https://arxiv.org/abs/2406.19108">
+          Paradigms of Intelligence Team
+        </a> and
+        <a href="https://arxiv.org/abs/2406.19108">
+          the University of Chicago
+        </a>.
+      </li>
+    </ul>
+
+    <p>
+      You can try out my Brainfuck compiler here (written in OCaml compiled to
+      JS). Compiler generates ELF files for x86 Linux, so you need Linux
+      and an x86 computer to run the programs.
+    </p>
+
+    <textarea rows="6" id="codearea">>++++++++[<+++++++++>-]<.>++++[<+++
+++++>-]<+.+++++++..+++.>>++++++[<++
++++++>-]<++.------------.>++++++[<+
+++++++++>-]<+.<.+++.------.--------
+.>>>++++[<++++++++>-]<+.</textarea><br />
+    <button onclick="compile()" id="compile">BUILD</button><br />
+    <p id="downloads"></p>
+  </main>
+  <footer>
+    © 2025 Richard Blažek. All rights reserved.
+  </footer>
+</body>
+
+</html>

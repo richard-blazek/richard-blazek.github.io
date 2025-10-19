@@ -1,0 +1,157 @@
+body, input, button {
+    font-family: "Source Sans 3", Helvetica, sans-serif;
+    line-height: 1.6;
+}
+
+body {
+    margin: 0;
+    color: #555;
+}
+
+main {
+    width: 100%;
+    max-width: 60rem;
+    margin: 0 auto;
+    padding: 10rem 1rem 0 1rem;
+    box-sizing: border-box;
+}
+
+h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin: 0 0 1.5rem 0;
+}
+
+p, input, li, textarea {
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+
+p, ul {
+    margin: 0 0 1.5rem 0;
+}
+
+a:hover {
+    color: #f78;
+}
+
+a {
+    transition: color 0.3s ease;
+    text-decoration: none;
+    color: #555;
+    font-weight: 400;
+}
+
+footer {
+    width: 100%;
+    max-width: 60rem;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+    font-size: 1rem;
+    font-weight: 300;
+    box-sizing: border-box;
+}
+
+section.gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    row-gap: 2.5rem;
+    column-gap: 2.5rem;
+    padding: 3rem 0;
+}
+
+@media screen and (max-width: 60rem) {
+    section.gallery {
+        row-gap: 1.5rem;
+        column-gap: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 50rem) {
+    main {
+        padding-top: 4rem;
+    }
+    section.gallery {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 35rem) {
+    h1 {
+        line-height: 1.1;
+    }
+    main {
+        padding-top: 1rem;
+    }
+    section.gallery {
+        grid-template-columns: 1fr;
+    }
+}
+
+a.tile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 8rem 2rem;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: 0.25rem;
+    position: relative;
+    background-color: #0004;
+    transition: background-color 0.7s ease;
+}
+
+a.tile:hover {
+    background-color: #0000;
+}
+
+a.tile > img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    z-index: -1;
+    border-radius: 0.25rem;
+}
+
+input, button, textarea {
+    outline: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+
+input {
+    box-shadow: inset 0 -1px 0 0 #555;
+    color: #555;
+}
+
+input:focus {
+    box-shadow: inset 0 -2px 0 0 #f78;
+}
+
+button {
+    font-size: 1.25rem;
+    padding: 1rem 1.75rem;
+    border-radius: 0.25rem;
+    font-weight: 900;
+    letter-spacing: 0.25rem;
+    background-color: #555;
+    transition: background-color 0.7s ease;
+    color: #fff;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #f78;
+}
+
+textarea {
+    width: 100%;
+    resize: vertical;
+    outline: 0;
+    border-radius: 0.25rem;
+    border: 1px solid #555;
+}

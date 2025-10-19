@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Compiler</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Compiler for my custom programming language">
+  <meta name="author" content="Richard Blažek">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="canonical" href="https://richardblazek.com/">
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+
+<body>
+  <main>
+    <h1>Compiler</h1>
+    <p>
+      I designed my programming language and wrote a compiler for that language.
+      The compiler itself is written in Rust, so that it can be compiled
+      to WebAssembly and run in the browser.
+    </p>
+    <p>
+      My compiler generates WASM code, so you execute compiled programs
+      in your browser. Try it out below:
+    </p>
+    <textarea rows="20" id="codearea" style="width: 100%">range = fun[n: Int] Array[Int] {
+    result = array[Int, n];
+    for i, value : result {
+        set[result, i, i + 1];
+    }
+    result
+};
+main = fun[] () {
+    square = fun[x: Int] Int {
+        x * x
+    };
+
+    isPrime = fun[n: Int] Bool {
+        prime = true;
+        if n < 2 {
+            prime = false;
+        } else {
+            i = 2;
+            while square[i] <= n && prime {
+                prime = n % i != 0;
+                i = i + 1;
+            }
+        }
+        prime
+    };
+
+    nums = range[100];
+    for num : nums {
+        print[num, if isPrime[num] {
+          " is a prime."
+        } else {
+          " is not a prime."
+        }, "\n"];
+    }
+};
+</textarea><br/>
+    <button id="buildandshow">TO WASM</button>
+    <button id="buildandrun">RUN</button><br/>
+    <h2>Output</h2>
+    <textarea id="outputarea" readonly rows="4" style="width: 100%"></textarea>
+  </main>
+  <footer>
+    © 2025 Richard Blažek. All rights reserved.
+  </footer>
+
+  <script src="https://unpkg.com/wabt"></script>
+  <script type="module">
+    import init, { compile } from "./assets/zyba_to_wasm_compiler.js";
+
+    const codearea = document.getElementById("codearea");
+    const output = document.getElementById("outputarea");
+    const wabt = await WabtModule();
+    let memory;
+
+    function print(s) {
+      output.value = output.value + s;
+      output.rows = (output.value.match(/\n/g) || []).length + 1;
+    }
+    
+    function print_text(ptr) {
+      const bytes = new Uint8Array(memory.buffer, ptr);
+      for (let i = 0; bytes[i] !== 0; i++) {
+        print(String.fromCharCode(bytes[i]));
+      }
+    }
+
+    function print_real(num) {
+      print(String(num));
+    }
+
+    function print_ints(low, high) {
+      const big = BigInt(low >>> 0) | (BigInt(high) << 32n);
+      print(big.toString());
+    }
+
+    document.getElementById("buildandshow").onclick = async () => {
+      await init();
+      output.value = '';
+      print(compile(codearea.value));
+    };
+
+    document.getElementById("buildandrun").onclick = async () => {
+      await init();
+
+      output.value = '';
+      const wat = compile(codearea.value);
+
+      if (wat.startsWith("Error")) {
+        print(wat);
+        return;
+      }
+
+      const wasmModule = wabt.parseWat("example.wat", wat);
+      const { buffer } = wasmModule.toBinary({});
+
+      const { instance } = await WebAssembly.instantiate(buffer, ({
+          env: ({ print_text, print_real, print_ints })
+      }));
+
+      const main = instance.exports.main;
+      memory = instance.exports.memory;
+      main();
+    }
+  </script>
+</body>
+</html>
