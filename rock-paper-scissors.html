@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Rock-paper-scissors CA</title>
+  <title>Rock-paper-scissors cellular automaton</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="index, follow">
@@ -19,9 +19,21 @@
 
 <body>
   <main>
-    <h1>Rock-paper-scissors</h1>
+    <h1>Rock-paper-scissors CA</h1>
     <p>
-      Rock-paper-scissors cellular automaton
+      Rock-paper-scissors is a cellular automaton inspired by the
+      rock-paper-scissors game. A non-empty cell represents a gesture (rock,
+      paper, or scissors). In each step, each cell plays against its
+      four neighbours. If any of the neighbours beats the cell, the cell's
+      gesture will be set to the gesture of that neighbour.
+    </p>
+    <p>
+      The simulation below uses colours to visualise the gestures of the game.
+      To produce more complex patterns, it also allows the gestures "lizard"
+      and "Spock" from an
+      <a href="https://en.wikipedia.org/wiki/Rock_paper_scissors#Additional_weapons">
+        extended version of the game.
+      </a>
     </p>
     <canvas id="glcanvas" tabindex="1" style="width: 100%; height: 50rem;"></canvas>
     <script src="assets/mq_js_bundle.js"></script>
