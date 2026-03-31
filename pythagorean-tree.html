@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Pythagorean Tree</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Interactive Pythagorean tree fractal generator">
+  <meta name="author" content="Richard Blažek">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="canonical" href="https://richardblazek.com/">
+  <link rel="stylesheet" href="assets/styles.css" />
+  <style>
+    .controls {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    #tree-container {
+      width: 100%;
+      background: #001;
+    }
+
+    #tree-container svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <h1>Pythagorean Tree</h1>
+    <p>
+        This is an interactive generator of the Pythagorean tree fractal. You can
+        adjust the ratio of the branches and the depth of the tree using the
+        sliders below.
+    </p>
+    <p class="controls">
+      Ratio
+      <input type="range" id="ratio-slider" min="0.2" max="5" step="0.05" value="1">
+      <span id="ratio-value">1.00</span>
+    </p>
+    <p class="controls">
+      Depth
+      <input type="range" id="count-slider" min="0" max="15" step="1" value="7">
+      <span id="count-value">8</span>
+    </p>
+    <div id="tree-container"></div>
+  </main>
+  <footer>
+    © 2026 Richard Blažek. All rights reserved.
+  </footer>
+
+  <script src="assets/pythagorean-tree.js"></script>
+  <script>
+    const ratioSlider = document.getElementById('ratio-slider');
+    const countSlider = document.getElementById('count-slider');
+    const ratioValue = document.getElementById('ratio-value');
+    const countValue = document.getElementById('count-value');
+    const container = document.getElementById('tree-container');
+
+    function update() {
+      const ratio = parseFloat(ratioSlider.value);
+      const count = parseInt(countSlider.value, 10);
+      ratioValue.textContent = ratio.toFixed(2);
+      countValue.textContent = count;
+      container.innerHTML = pythagoreanTree(ratio, count);
+    }
+
+    ratioSlider.addEventListener('input', update);
+    countSlider.addEventListener('input', update);
+    update();
+  </script>
+</body>
+
+</html>
