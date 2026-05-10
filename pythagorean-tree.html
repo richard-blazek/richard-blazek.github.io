@@ -71,7 +71,9 @@
     function update() {
       const twist = parseInt(twistSlider.value, 10);
       const count = parseInt(countSlider.value, 10);
-      twistValue.textContent = twist;
+      twistValue.textContent = twist >= 0
+        ? `1.0 : ${Math.pow(5, twist/10).toFixed(1)}`
+        : `${Math.pow(5, -twist/10).toFixed(1)} : 1.0`;
       countValue.textContent = count;
 
       container.innerHTML = pythagoreanTree(Math.pow(5, twist/10), count);
