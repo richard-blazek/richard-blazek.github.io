@@ -41,13 +41,13 @@
     <h1>Pythagorean Tree</h1>
     <p>
         This is an interactive generator of the Pythagorean tree fractal. You can
-        adjust the ratio of the branches and the depth of the tree using the
-        sliders below.
+        adjust the depth of the tree and twist it right or left using the sliders
+        below.
     </p>
     <p class="controls">
-      Ratio
-      <input type="range" id="ratio-slider" min="0.2" max="5" step="0.05" value="1">
-      <span id="ratio-value">1.00</span>
+      Twist
+      <input type="range" id="twist-slider" min="-10" max="10" step="1" value="0">
+      <span id="twist-value">1</span>
     </p>
     <p class="controls">
       Depth
@@ -62,21 +62,22 @@
 
   <script src="assets/pythagorean-tree.js"></script>
   <script>
-    const ratioSlider = document.getElementById('ratio-slider');
+    const twistSlider = document.getElementById('twist-slider');
     const countSlider = document.getElementById('count-slider');
-    const ratioValue = document.getElementById('ratio-value');
+    const twistValue = document.getElementById('twist-value');
     const countValue = document.getElementById('count-value');
     const container = document.getElementById('tree-container');
 
     function update() {
-      const ratio = parseFloat(ratioSlider.value);
+      const twist = parseInt(twistSlider.value, 10);
       const count = parseInt(countSlider.value, 10);
-      ratioValue.textContent = ratio.toFixed(2);
+      twistValue.textContent = twist;
       countValue.textContent = count;
-      container.innerHTML = pythagoreanTree(ratio, count);
+
+      container.innerHTML = pythagoreanTree(Math.pow(5, twist/10), count);
     }
 
-    ratioSlider.addEventListener('input', update);
+    twistSlider.addEventListener('input', update);
     countSlider.addEventListener('input', update);
     update();
   </script>
