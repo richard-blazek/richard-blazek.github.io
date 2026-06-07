@@ -25,5 +25,4 @@ function update() {
     }
     var words = Array(count).fill(0).map(pickWord).join('-');
     document.getElementById('output').textContent = words;
-    document.getElementById('enthropy').textContent = `${count * 15} bits`;
 }
