@@ -79,8 +79,9 @@ h1 {
 }
 
 .title-close {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
+  text-decoration: none;
   background: #c0c0c0;
   display: flex;
   align-items: center;
