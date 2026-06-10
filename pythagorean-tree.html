@@ -25,7 +25,7 @@
 
     #tree-container {
       width: 100%;
-      background: #001;
+      background: #FFF;
     }
 
     #tree-container svg {
@@ -41,18 +41,12 @@
     <h1>Pythagorean Tree</h1>
     <p>
         This is an interactive generator of the Pythagorean tree fractal. You can
-        adjust the depth of the tree and twist it right or left using the sliders
-        below.
+        twist it right or left using the slider below.
     </p>
     <p class="controls">
       Twist
-      <input type="range" id="twist-slider" min="-10" max="10" step="1" value="0">
+      <input type="range" id="twist-slider" min="-40" max="40" step="1" value="0">
       <span id="twist-value">1</span>
-    </p>
-    <p class="controls">
-      Depth
-      <input type="range" id="count-slider" min="0" max="15" step="1" value="7">
-      <span id="count-value">8</span>
     </p>
     <div id="tree-container"></div>
   </main>
@@ -63,24 +57,23 @@
   <script src="assets/pythagorean-tree.js"></script>
   <script>
     const twistSlider = document.getElementById('twist-slider');
-    const countSlider = document.getElementById('count-slider');
     const twistValue = document.getElementById('twist-value');
-    const countValue = document.getElementById('count-value');
     const container = document.getElementById('tree-container');
 
     function update() {
       const twist = parseInt(twistSlider.value, 10);
-      const count = parseInt(countSlider.value, 10);
-      twistValue.textContent = twist >= 0
-        ? `1.0 : ${Math.pow(5, twist/10).toFixed(1)}`
-        : `${Math.pow(5, -twist/10).toFixed(1)} : 1.0`;
-      countValue.textContent = count;
-
-      container.innerHTML = pythagoreanTree(Math.pow(5, twist/10), count);
+      if (twist >= 0) {
+        const ratio = 1 + twist / 10;
+        twistValue.textContent = `1 : ${ratio == 1 ? '1' : ratio.toFixed(1)}`;
+        container.innerHTML = pythagoreanTree(ratio, 12);
+      } else {
+        const ratio = 1 - twist / 10;
+        twistValue.textContent = `${ratio.toFixed(1)} : 1`;
+        container.innerHTML = pythagoreanTree(1/ratio, 12);
+      }
     }
 
     twistSlider.addEventListener('input', update);
-    countSlider.addEventListener('input', update);
     update();
   </script>
 </body>
