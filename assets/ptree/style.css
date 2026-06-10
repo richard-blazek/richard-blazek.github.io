@@ -1,0 +1,69 @@
+body {
+  font-family: "Source Code Pro", monospace;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  background: #000;
+  color: #FFF;
+  margin: 0;
+  padding: 2rem 0;
+}
+
+h1 {
+  font-size: 4rem;
+  text-align: center;
+  margin: 0;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.controls button {
+  width: 4rem;
+  height: 4rem;
+  font-size: 1.5rem;
+  background-color: #000;
+  color: #FFF;
+  border: 0.1rem solid #FFF;
+  border-radius: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.controls button:hover,
+.controls button:active {
+  background-color: #FFF;
+  color: #000;
+}
+
+#tree-container {
+  width: 100%;
+  max-width: 60rem;
+  margin: 0 auto;
+}
+
+#tree-container svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+footer {
+  text-align: center;
+  color: #777;
+  margin-top: 2rem;
+}
