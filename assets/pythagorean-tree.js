@@ -23,7 +23,7 @@ function processLine(lines, bbox, bl, br, depth, ratio) {
 		bbox.maxY = Math.max(bbox.maxY, p.y);
 		line += `${p.x.toFixed(2)},${p.y.toFixed(2)} `;
 	}
-	line += `" fill="#301500" stroke="#00C100" stroke-width="2"/>`;
+	line += `" fill="transparent" stroke="#00C100" stroke-width="2"/>`;
 	lines.push(line);
 
 	if (depth > 0) {
