@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Czech passphrase generator</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <meta name="description" content="Passphrase generator for Czech" />
+  <meta name="author" content="Richard Blažek" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="canonical" href="https://richardblazek.com/">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,700;1,400;1,700&amp;family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="assets/passphrase/style.css" />
+</head>
+
+<body>
+  <main>
+    <header>
+      <h1>Czech Passphrase Gen</h1>
+      <a aria-label="Close Window" class="title-close" href="index.html">
+        🗙
+      </a>
+    </header>
+    <div class="content">
+      <section class="controls">
+        <div class="field">
+          <label for="count">Number of words:</label>
+          <input id="count" max="20" min="1" type="number" value="4" oninput="update()" />
+        </div>
+        <button class="generate-btn" id="generateBtn" onclick="update()">
+          Generate
+        </button>
+      </section>
+      <hr />
+      <section class="output">
+        <label for="output">Generated Passphrase:</label>
+        <textarea id="output" readonly rows="5"></textarea>
+        <button class="copy-btn" id="copyBtn">Copy</button>
+      </section>
+    </div>
+  </main>
+
+  <script src="assets/passphrase/script.js"></script>
+  <script>update()</script>
+
+  <script>
+    document.getElementById('copyBtn').addEventListener('click', function () {
+      const output = document.getElementById('output');
+      output.select();
+      document.execCommand('copy');
+      this.disabled = true;
+      this.textContent = '✓ Copied';
+      setTimeout(() => {
+        this.textContent = 'Copy';
+        this.disabled = false;
+      }, 1500);
+    });
+  </script>
+</body>
+
+</html>
