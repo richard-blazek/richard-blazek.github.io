@@ -1,5 +1,12 @@
+@font-face {
+  font-display: swap;
+  font-family: 'Merriweather';
+  font-style: normal;
+  font-weight: 400;
+  src: url('font.woff2') format('woff2');
+}
+
 body {
-    font-family: "Source Sans 3", Helvetica, sans-serif;
     line-height: 1.6;
     margin: 0;
     color: #555;
@@ -7,7 +14,7 @@ body {
 
 main {
     width: 100%;
-    max-width: 60rem;
+    max-width: 64rem;
     margin: 0 auto;
     padding: 10rem 1rem 0 1rem;
     box-sizing: border-box;
@@ -26,19 +33,20 @@ p {
 }
 
 a:hover {
-    color: #f78;
+    text-decoration-color: transparent;
 }
 
 a {
     transition: color 0.3s ease;
-    text-decoration: none;
+    text-decoration: underline;
     color: #555;
     font-weight: 400;
+    transition: text-decoration-color 0.2s;
 }
 
 footer {
     width: 100%;
-    max-width: 60rem;
+    max-width: 64rem;
     margin: 0 auto;
     padding: 3rem 1rem;
     font-size: 1rem;
@@ -48,7 +56,7 @@ footer {
 
 menu {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     row-gap: 2.5rem;
     column-gap: 2.5rem;
     padding: 3rem 0;
@@ -59,18 +67,13 @@ menu {
         row-gap: 1.5rem;
         column-gap: 1.5rem;
     }
+
+    menu a {
+        padding: 8rem 2rem;
+    }
 }
 
 @media screen and (max-width: 50rem) {
-    main {
-        padding-top: 4rem;
-    }
-    menu {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-@media screen and (max-width: 35rem) {
     h1 {
         line-height: 1.1;
     }
@@ -87,26 +90,34 @@ menu a {
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 8rem 2rem;
+    padding: 10rem 3rem;
     color: #fff;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 900;
-    letter-spacing: 0.25rem;
     position: relative;
-    background-color: #0004;
-    transition: background-color 0.7s ease;
-}
-
-menu a:hover {
-    background-color: #0000;
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
+    text-decoration: none;
 }
 
 menu a > img {
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center center;
     z-index: -1;
-    border-radius: 0.25rem;
+    filter: brightness(0.8);
+    transition: top 0.5s ease, left 0.5s ease, width 0.5s ease, height 0.5s ease;
+}
+
+@media screen and (min-width: 50.01rem) {
+    menu a:hover > img {
+        top: -1rem;
+        left: -1rem;
+        width: calc(100% + 2rem);
+        height: calc(100% + 2rem);
+    }
 }
