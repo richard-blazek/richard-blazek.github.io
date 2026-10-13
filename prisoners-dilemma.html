@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Prisoner's dilemma</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Simulated tournament of the strategies for the Prisoner's dilemma">
+  <meta name="author" content="Richard Blažek">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="canonical" href="https://richardblazek.com/">
+  <link rel="stylesheet" href="assets/prisoner/style.css" />
+
+<body>
+  <h1>Prisoner's dilemma</h1>
+  <p>The dilemma: <a href="">see here</a>. The simulation: see below.</p>
+  <p id="loading_text">Loading...</p>
+  <canvas id="canvas_id" style="width: 100%; height: 50rem"></canvas>
+
+  <script type="module">
+    import init, * as bindings from './assets/prisoner/code.js';
+    const wasm = await init({ module_or_path: './assets/prisoner/blob.wasm' });
+    window.wasmBindings = bindings;
+    dispatchEvent(new CustomEvent("TrunkApplicationStarted", { detail: { wasm } }));
+  </script>
+  <footer>
+    © 2026 Richard Blažek. All rights reserved.
+  </footer>
+</body>
+
+</html>

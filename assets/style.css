@@ -1,0 +1,112 @@
+body {
+    font-family: "Source Sans 3", Helvetica, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    color: #555;
+}
+
+main {
+    width: 100%;
+    max-width: 60rem;
+    margin: 0 auto;
+    padding: 10rem 1rem 0 1rem;
+    box-sizing: border-box;
+}
+
+h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin: 0 0 1.5rem 0;
+}
+
+p {
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin: 0 0 1.5rem 0;
+}
+
+a:hover {
+    color: #f78;
+}
+
+a {
+    transition: color 0.3s ease;
+    text-decoration: none;
+    color: #555;
+    font-weight: 400;
+}
+
+footer {
+    width: 100%;
+    max-width: 60rem;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+    font-size: 1rem;
+    font-weight: 300;
+    box-sizing: border-box;
+}
+
+menu {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    row-gap: 2.5rem;
+    column-gap: 2.5rem;
+    padding: 3rem 0;
+}
+
+@media screen and (max-width: 60rem) {
+    menu {
+        row-gap: 1.5rem;
+        column-gap: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 50rem) {
+    main {
+        padding-top: 4rem;
+    }
+    menu {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 35rem) {
+    h1 {
+        line-height: 1.1;
+    }
+    main {
+        padding-top: 1rem;
+    }
+    menu {
+        grid-template-columns: 1fr;
+    }
+}
+
+menu a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 8rem 2rem;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: 0.25rem;
+    position: relative;
+    background-color: #0004;
+    transition: background-color 0.7s ease;
+}
+
+menu a:hover {
+    background-color: #0000;
+}
+
+menu a > img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    z-index: -1;
+    border-radius: 0.25rem;
+}

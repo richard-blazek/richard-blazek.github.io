@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Pythagorean Tree</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Pythagorean tree fractal generator">
+  <meta name="author" content="Richard Blažek">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@500&display=swap" rel="stylesheet">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="canonical" href="https://richardblazek.com/">
+  <link rel="stylesheet" href="assets/ptree/style.css" />
+</head>
+
+<body>
+  <main>
+    <h1>pythagorean tree</h1>
+
+    <div class="controls">
+      <button id="btn-left" aria-label="Twist Left">&lt;</button>
+      <span id="twist">1 : 1</span>
+      <button id="btn-right" aria-label="Twist Right">&gt;</button>
+    </div>
+
+    <div id="tree-container"></div>
+  </main>
+
+  <footer>
+    © 2026 Richard Blažek. All rights reserved.
+  </footer>
+
+  <script src="assets/ptree/gen.js"></script>
+  <script>
+    const left = document.getElementById('btn-left');
+    const right = document.getElementById('btn-right');
+    const twistLabel = document.getElementById('twist');
+    const container = document.getElementById('tree-container');
+
+    let twist = 0;
+    function update() {
+      if (twist >= 0) {
+        const ratio = 1 + twist / 10;
+        container.innerHTML = pythagoreanTree(ratio, 12);
+        twistLabel.textContent = `1.0 : ${ratio.toFixed(1)}`;
+      } else {
+        const ratio = 1 - twist / 10;
+        container.innerHTML = pythagoreanTree(1 / ratio, 12);
+        twistLabel.textContent = `${ratio.toFixed(1)} : 1.0`;
+      }
+    }
+
+    left.addEventListener('click', () => {
+      twist = Math.max(-40, twist - 1);
+      update();
+    });
+
+    right.addEventListener('click', () => {
+      twist = Math.min(40, twist + 1);
+      update();
+    });
+
+    update();
+  </script>
+</body>
+
+</html>

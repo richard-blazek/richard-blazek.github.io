@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Brainfuck compiler</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Online compiler of Brainfuck to ELF files for x86 Linux">
+  <meta name="author" content="Richard Blažek">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="canonical" href="https://richardblazek.com/">
+  <link rel="stylesheet" href="assets/brainfuck/style.css">
+</head>
+
+<body>
+  <script src="assets/brainfuck/compiler.js"></script>
+  <script src="assets/brainfuck/script.js"></script>
+  <main>
+    <header class="glass hero">
+      <div class="title-text">
+        <h1>Brainfuck</h1>
+        <p class="subtitle">compile to x86 Linux ELF</p>
+      </div>
+      <button class="download" onclick="compile()" title="Build and download"></button>
+    </header>
+    <div class="glass code-display" id="display"></div>
+    <div class="glass toolbar">
+      <button class="tool t-lb" onclick="add('[')" title="loop start"></button>
+      <button class="tool t-rb" onclick="add(']')" title="loop end"></button>
+      <button class="tool t-rt" onclick="add('>')" title="move pointer right"></button>
+      <button class="tool t-lt" onclick="add('<')" title="move pointer left"></button>
+      <button class="tool t-inc" onclick="add('+')" title="increment cell"></button>
+      <button class="tool t-dec" onclick="add('-')" title="decrement cell"></button>
+      <button class="tool t-dot" onclick="add('.')" title="output byte"></button>
+      <button class="tool t-com" onclick="add(',')" title="input byte"></button>
+      <button class="tool t-del" onclick="del()" title="delete last"></button>
+    </div>
+  </main>
+  <footer>
+    © 2026 Richard Blažek. All rights reserved.
+  </footer>
+</body>
+
+</html>
