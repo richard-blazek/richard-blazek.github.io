@@ -9,7 +9,7 @@
 body {
     line-height: 1.6;
     margin: 0;
-    color: #555;
+    color: #444;
 }
 
 main {
@@ -22,13 +22,11 @@ main {
 
 h1 {
     font-size: 3.5rem;
-    font-weight: 700;
     margin: 0 0 1.5rem 0;
 }
 
 p {
     font-size: 1.5rem;
-    font-weight: 300;
     margin: 0 0 1.5rem 0;
 }
 
@@ -39,8 +37,7 @@ a:hover {
 a {
     transition: color 0.3s ease;
     text-decoration: underline;
-    color: #555;
-    font-weight: 400;
+    color: #444;
     transition: text-decoration-color 0.2s;
 }
 
@@ -50,7 +47,6 @@ footer {
     margin: 0 auto;
     padding: 3rem 1rem;
     font-size: 1rem;
-    font-weight: 300;
     box-sizing: border-box;
 }
 
@@ -93,7 +89,6 @@ menu a {
     padding: 10rem 3rem;
     color: #fff;
     font-size: 1.6rem;
-    font-weight: 900;
     position: relative;
     letter-spacing: 0.2rem;
     text-transform: uppercase;
