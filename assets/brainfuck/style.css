@@ -51,7 +51,7 @@ body::before {
     content: "";
     position: fixed;
     inset: 0;
-    background: url("bg.jpg") center/cover no-repeat;
+    background: url("bg.avif") center/cover no-repeat;
     filter: blur(.2rem);
     transform: scale(1.05);
     z-index: -1
