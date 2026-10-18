@@ -3,7 +3,7 @@
   font-family: 'Merriweather';
   font-style: normal;
   font-weight: 400;
-  src: url('font.woff2') format('woff2');
+  src: url('../font.woff2') format('woff2');
 }
 
 body {

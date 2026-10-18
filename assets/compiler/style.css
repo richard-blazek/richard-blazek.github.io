@@ -7,7 +7,7 @@ main {
 body,
 input,
 button {
-    font-family: "Source Sans 3", Helvetica, sans-serif;
+    font-family: sans-serif;
     line-height: 1.6;
 }
 

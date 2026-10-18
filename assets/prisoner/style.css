@@ -1,5 +1,12 @@
+@font-face {
+  font-display: swap;
+  font-family: 'Merriweather';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../font.woff2') format('woff2');
+}
+
 body {
-  font-family: "Source Sans 3", Helvetica, sans-serif;
   line-height: 1.6;
   margin: 0;
   padding: 2rem 4rem;
@@ -30,7 +37,6 @@ h1 {
 
 p {
   font-size: 1.25rem;
-  font-weight: 350;
 }
 
 @media (max-width: 50em) {
